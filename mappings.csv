@@ -1,0 +1,6 @@
+phrase,resolution
+Error 404: Page not found.,Contact Network Team.
+Fatal error: Uncaught TypeError: Cannot read property 'undefined' of null.,Ask user to check input
+Oops! Something went wrong. Please try again later.,Transient issue. Retry.
+Error: Unable to establish a database connection.,DB error. Check with data team.
+Access Denied: You do not have permission to view this resource.,Check permissions of user.
