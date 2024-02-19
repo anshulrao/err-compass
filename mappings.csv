@@ -4,3 +4,4 @@ Fatal error: Uncaught TypeError: Cannot read property 'undefined' of null.,Ask u
 Oops! Something went wrong. Please try again later.,Transient issue. Retry.
 Error: Unable to establish a database connection.,DB error. Check with data team.
 Access Denied: You do not have permission to view this resource.,Check permissions of user.
+500 Internal Server Error: Something went wrong on our end.,Restart job and try again.

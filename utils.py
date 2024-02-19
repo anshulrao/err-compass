@@ -73,3 +73,28 @@ def style_table(df):
     # combine the css style and html table
     styled_table = table_style + df_html
     return styled_table
+
+
+def read_error_messages_from_log_file(file_path):
+    """
+    Read error messages from a log file.
+
+    :param file_path: The path to the log file.
+    :type file_path: str
+    :return: A list of error messages extracted from the log file.
+    :rtype: list
+    """
+    error_messages = []
+    try:
+        with open(file_path, 'r') as file:
+            for line in file:
+                # use regular expression to search for error or failure
+                # messages
+                match = re.search(r'(error|failure|failed)', line, re.IGNORECASE)
+                if match:
+                    error_messages.append(line.strip())
+    except FileNotFoundError:
+        print(f"Error: File '{file_path}' not found.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    return error_messages
