@@ -15,7 +15,7 @@ We utilize this tool to collect all encountered errors along with the correspond
 
 
 #### SEARCH
-<img width="1062" alt="Screenshot 2024-02-18 at 7 42 13 PM" src="https://github.com/anshulrao/error-compass/assets/31268509/31b25784-4891-4db9-b561-1d2a006d1809">
+<img width="1064" alt="Screenshot 2024-02-18 at 7 50 26 PM" src="https://github.com/anshulrao/error-compass/assets/31268509/983b6eec-c53d-4825-ad4b-df6415ebaf79">
 
 
 #### FILTER
