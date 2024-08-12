@@ -6,6 +6,7 @@ import numpy as np
 import re
 
 from utils import *
+from similarity_calculator import SentenceSimilarityCalculator
 
 pd.set_option('display.max_rows', None)
 pd.set_option('display.max_columns', None)
@@ -19,33 +20,10 @@ class AppUI(object):
         """
         print("Rendering the UI...")
         self._create_ui()
-        
-        
-    def _compute_similarity(self, sentence1, sentence2):
-        """
-        Compute cosine similarity of two sentences.
-        
-        """
-        # remove punctuations
-        sentence1 = re.sub(r'[^\w\s]', '', sentence1)
-        sentence2 = re.sub(r'[^\w\s]', '', sentence2)
-        
-        # tokenize
-        words1 = sentence1.lower().split()
-        words2 = sentence2.lower().split()
-        
-        # create a set of unique words
-        unique_words = set(words1 + words2)
-        
-        # create vectors for each sentence
-        vector1 = [words1.count(word) for word in unique_words]
-        vector2 = [words2.count(word) for word in unique_words]
-        
-        # compute cosine similarity
-        similarity = cosine_similarity([vector1], [vector2])[0][0]
-        return similarity
-    
-    def _rank_sentences(self, target_sentence):
+        self.model = None
+        self.similarity_calculator = SentenceSimilarityCalculator(refresh_word2vec=True)
+
+    def _rank_sentences(self, target_sentence, model):
         """
         Rank the sentences in descending order based on their 
         similarity to target sentence.
@@ -56,7 +34,7 @@ class AppUI(object):
         
         # compute similarity between each sentence and target sentence.
         for _, row in df.iterrows():
-            similarity = self._compute_similarity(target_sentence, row['phrase'])
+            similarity = self.similarity_calculator.compute_similarity(target_sentence, row['phrase'], model)
             similarities.append((row['phrase'], row['resolution'], similarity))
         
         # order the sentences in descending order of similarity and then return them
@@ -131,6 +109,15 @@ class AppUI(object):
         
         # create the submit button
         submit_btn = widgets.Button(description="Submit", layout=widgets.Layout(flex='1'))
+
+        # create model dropdown
+        model_dropdown = widgets.Dropdown(
+            options=['BoW', 'Word2Vec', 'GloVe'],
+            value="BoW",
+            description="Model:",
+            disabled=False
+        )
+
         submit_output = widgets.Output()
         
         def on_submit_btn_click(b):
@@ -141,7 +128,7 @@ class AppUI(object):
             with submit_output:
                 submit_output.clear_output(wait=True)
                 target_sentence = sentence_input.value
-                similarities = self._rank_sentences(target_sentence)
+                similarities = self._rank_sentences(target_sentence, model_dropdown.value)
                 df = pd.DataFrame(similarities, columns=['Error', 'Resolution', 'Accuracy']).head()
                 display(HTML(style_table(df)))
                 
@@ -150,11 +137,11 @@ class AppUI(object):
         # arrange everything together
         vbox = widgets.VBox([
             widgets.HTML('<h2 style="text-align:center;">SEARCH ERROR</h2>'),
-            widgets.HBox([sentence_input]),
+            widgets.HBox([sentence_input, model_dropdown]),
             widgets.HBox([submit_btn]),
             submit_output
         ], layout=widgets.Layout(margin='0px'))
-        
+
         display(vbox)
 
     def _create_filter_ui(self):
@@ -173,6 +160,15 @@ class AppUI(object):
 
         # create the submit button
         submit_btn = widgets.Button(description="Submit", layout=widgets.Layout(flex='1'))
+
+        # create model dropdown
+        model_dropdown = widgets.Dropdown(
+            options=['BoW', 'Word2Vec', 'GloVe'],
+            value="BoW",
+            description="Model:",
+            disabled=False
+        )
+
         submit_output = widgets.Output()
 
         def on_submit_btn_click(b):
@@ -185,7 +181,7 @@ class AppUI(object):
                 submit_output.clear_output(wait=True)
                 error_msgs = read_error_messages_from_log_file(fn_input.value)
                 for error_msg in error_msgs:
-                    similarities = self._rank_sentences(error_msg)
+                    similarities = self._rank_sentences(error_msg, model_dropdown.value)
                     df = pd.DataFrame(similarities, columns=['Error', 'Resolution', 'Accuracy']).head()
                     display(HTML(f'<font color="darkred">{error_msg}</font>'))
                     display(HTML(style_table(df)))
@@ -195,7 +191,7 @@ class AppUI(object):
         # arrange everything together
         vbox = widgets.VBox([
             widgets.HTML('<h2 style="text-align:center;">FILTER LOG FILE</h2>'),
-            widgets.HBox([fn_input]),
+            widgets.HBox([fn_input, model_dropdown]),
             widgets.HBox([submit_btn]),
             submit_output
         ], layout=widgets.Layout(margin='0px'))
