@@ -59,6 +59,6 @@ where:
 
 
 #### FILTER
-<img width="991" alt="Screenshot 2024-08-12 at 5 06 56 PM" src="https://github.com/user-attachments/assets/a6923412-8b66-4ca7-9984-a4d0c5b1b83d">
+<img width="991" alt="Screenshot 2024-08-12 at 5 08 47 PM" src="https://github.com/user-attachments/assets/19fe52e1-1760-44b7-9d26-24314caa4e9f">
 
 
