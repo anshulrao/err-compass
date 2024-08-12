@@ -55,11 +55,10 @@ where:
 
 
 #### SEARCH
-<img width="1064" alt="Screenshot 2024-02-18 at 7 50 26 PM" src="https://github.com/anshulrao/error-compass/assets/31268509/983b6eec-c53d-4825-ad4b-df6415ebaf79">
+<img width="1063" alt="Screenshot 2024-08-12 at 4 38 20 PM" src="https://github.com/user-attachments/assets/0b6af02c-90ac-4fd9-a98c-aebaef8a8f13">
 
 
 #### FILTER
-<img width="1063" alt="Screenshot 2024-02-18 at 7 42 44 PM" src="https://github.com/anshulrao/error-compass/assets/31268509/a0b88114-f442-428e-b720-483d384ebf23">
-
+<img width="991" alt="Screenshot 2024-08-12 at 5 06 56 PM" src="https://github.com/user-attachments/assets/a6923412-8b66-4ca7-9984-a4d0c5b1b83d">
 
 
