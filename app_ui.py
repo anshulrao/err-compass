@@ -1,9 +1,6 @@
 from IPython.display import display, HTML
-from sklearn.metrics.pairwise import cosine_similarity
 import ipywidgets as widgets
 import pandas as pd
-import numpy as np
-import re
 
 from utils import *
 from similarity_calculator import SentenceSimilarityCalculator
